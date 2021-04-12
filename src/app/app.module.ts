@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {PokemonsComponent} from './pokemons/list-pokemons/pokemons.component';
 
 @NgModule({
   declarations: [
+    PokemonsComponent,
     AppComponent
   ],
   imports: [
