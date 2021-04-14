@@ -3,25 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {PokemonsComponent} from './pokemons/list-pokemons/pokemons.component';
 import {PageNotFoundComponent} from './page-not-found.component';
-import { PokemonTypeColorPipe } from './pipes/pokemon-type-color.pipe';
-import { BorderCardDirective } from './pokemons/directives/border-card.directive';
-import { DetailPokemonComponent } from './pokemons/detail-pokemon/detail-pokemon/detail-pokemon.component';
+import { FormsModule } from '@angular/forms';
+import {PokemonsModule} from './pokemons/pokemons.module';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 @NgModule({
   declarations: [
-    PokemonsComponent,
-    PageNotFoundComponent,
-    PokemonTypeColorPipe,
-    DetailPokemonComponent,
     AppComponent,
-    PokemonTypeColorPipe,
-    BorderCardDirective,
-    DetailPokemonComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
+    FormsModule,
+    PokemonsModule,
     AppRoutingModule
   ],
   providers: [],

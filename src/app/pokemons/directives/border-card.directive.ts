@@ -7,7 +7,7 @@ export class BorderCardDirective {
 
   private initialColor = '#000000';
   private defaultColor = '#009688';
-  private defaultHeight = 300;
+  private defaultHeight = 200;
   private borderColor = '#009688';
 
 

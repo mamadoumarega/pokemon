@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../donnees-pokemons/pokemon';
-import { LISTPOKEMONS } from '../donnees-pokemons/mock-pokemons';
+
 
 import {ActivatedRoute, Router} from '@angular/router';
+import {PokemonService} from '../pokemon.service';
 
 
 @Component({
@@ -13,12 +14,15 @@ export class PokemonsComponent implements OnInit {
 
   pokemons: Pokemon[];
 
-  constructor(private route: Router) {
+  constructor(private route: Router, private pokemonService: PokemonService) {
     this.pokemons = [];
    }
 
   ngOnInit(): void {
-    this.pokemons = LISTPOKEMONS;
+   this.pokemonService.getPokemons()
+     .subscribe(pokemons => {
+       this.pokemons = pokemons;
+     });
 
   }
 
