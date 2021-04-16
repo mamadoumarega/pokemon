@@ -26,7 +26,7 @@ export class PokemonsComponent implements OnInit {
        // console.log(pokemons);
        this.pokemons = pokemons;
        this.pokemonsData = [...this.pokemons];
-       console.log(this.pokemonsData);
+       // console.log(this.pokemonsData);
      });
   }
 

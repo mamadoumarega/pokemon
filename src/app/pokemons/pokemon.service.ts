@@ -4,9 +4,9 @@ import {LISTPOKEMONS} from './donnees-pokemons/mock-pokemons';
 import {Pokemon} from './donnees-pokemons/pokemon';
 import {Router} from '@angular/router';
 
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
 @Injectable({
@@ -106,20 +106,5 @@ export class PokemonService {
       tap(_ => PokemonService.log(`deleted pokemon id = ${pokemon.id}`)),
       catchError(this.handleError<any>('deletePokemon error'))
     );
-  }
-
-  // tslint:disable-next-line:typedef
-  uploadFile() {
-    // this.http is the injected HttpClient
-    const uploadData = new FormData();
-    console.log(uploadData);
-    uploadData.append('image', this.selectedFile, this.selectedFile.name);
-    this.http.post('img/', uploadData, {
-      reportProgress: true,
-      observe: 'events'
-    })
-      .subscribe(event => {
-        console.log(event); // handle event here
-      });
   }
 }

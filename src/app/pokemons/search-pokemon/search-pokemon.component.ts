@@ -21,7 +21,7 @@ export class SearchPokemonComponent implements OnInit {
     this.isHere = false;
     this.pokemonService.getPokemons()
       .subscribe(pokemons => {
-        console.log(pokemons);
+       // console.log(pokemons);
         this.pokemons = pokemons;
         this.pokemonsData = [...this.pokemons];
       });

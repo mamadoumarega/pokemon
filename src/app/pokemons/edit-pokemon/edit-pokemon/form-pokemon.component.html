@@ -13,7 +13,7 @@
             id="picture"
             [(ngModel)]="pokemon.picture"  #picture="ngModel"
           >
-          <img class="responsive-img center" *ngIf="pokemon.urlLink" [src]="urlLink" alt="{{ pokemon.name}}">
+          <img class="responsive-img center" *ngIf="pokemon.urlLink" [src]="urlLink" alt="{{ pokemon.name }}">
           <div [hidden]="picture.valid || picture.pristine" class="card-panel red accent-1">
             image novalide
           </div>

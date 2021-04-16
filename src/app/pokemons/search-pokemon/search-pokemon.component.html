@@ -1,5 +1,5 @@
 <div class="form-group">
-    <input type="text" [(ngModel)]="filterBy" placeholder="filterBy" (keyup)="filter()">
+    <input type="text" [(ngModel)]="filterBy" placeholder="Nom du pokemon à chercher" (keyup)="filter()">
     <ul class="collection with-header">
       <li class="collection-header"  *ngIf="isHere">
         <span *ngFor="let pkm of pokemonsData" (click)="selectedPokemon(pkm)">

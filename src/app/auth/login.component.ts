@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return ;
     }
-    alert('Connecter');
     this.router.navigate(['/pokemon/all']);
     this.loginForm.reset();
   }
