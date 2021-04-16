@@ -68,13 +68,4 @@ export class FormPokemonComponent implements OnInit {
       };
     }
   }
-
-
-// image
-  onFileChanged(event): void{
-    this.selectedFile = event.target.files[0];
-  }
-  onUpload(): void {
-    this.pokemonService.uploadFile();
-  }
 }
