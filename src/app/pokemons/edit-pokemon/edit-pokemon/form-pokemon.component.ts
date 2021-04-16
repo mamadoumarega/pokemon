@@ -4,10 +4,6 @@ import { Pokemon } from '../../donnees-pokemons/pokemon';
 import { ActivatedRoute, Router } from '@angular/router';
 import {PokemonService} from '../../pokemon.service';
 
-class ImageSnippet {
-  constructor(public src: string, public file: File) {
-  }
-}
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,9 +15,8 @@ export class FormPokemonComponent implements OnInit {
 
   types: any = [];
   @Input() pokemon: any;
-  selectedFile: ImageSnippet;
   file: File;
-
+  urlLink: string;
   constructor(private route: ActivatedRoute, private router: Router, private pokemonService: PokemonService) {
   }
   ngOnInit(): void {
@@ -55,23 +50,31 @@ export class FormPokemonComponent implements OnInit {
       }
     }
   }
-  // tslint:disable-next-line:typedef
-  onImagePicked(image: any) {
-    console.log(image);
-    this.file = image.files[0];
-    console.log(this.file);
-    const reader = new FileReader();
-    reader.addEventListener('load', (event: any) => {
-      this.selectedFile = new ImageSnippet(event.target.result, this.file);
-      this.pokemonService.uploadFile(this.selectedFile.file);
-      reader.readAsDataURL(this.file);
-    });
-  }
-
-
   onSubmit(): void {
    this.pokemonService.updatePokemon(this.pokemon)
      .subscribe(() =>  this.goBack(this.pokemon))
    ;
+   console.log(this.pokemonService.updatePokemon(this.pokemon));
+  }
+
+  // tslint:disable-next-line:typedef
+  selectedFile(event: any) {
+    if (event.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      // tslint:disable-next-line:no-shadowed-variable
+      reader.onload = (event: any) => {
+        this.urlLink = event.target.result;
+      };
+    }
+  }
+
+
+// image
+  onFileChanged(event): void{
+    this.selectedFile = event.target.files[0];
+  }
+  onUpload(): void {
+    this.pokemonService.uploadFile();
   }
 }

@@ -15,7 +15,9 @@ import {of} from 'rxjs';
 export class PokemonService {
   pokemon: any = null;
   private pokemonsUrl = 'api/pokemons';
-
+  selectedFile: File;
+  // @ts-ignore
+  imgFile: LISTPOKEMONS;
   constructor(
     private router: Router,
     private http: HttpClient
@@ -107,8 +109,17 @@ export class PokemonService {
   }
 
   // tslint:disable-next-line:typedef
-  uploadFile(image: File) {
-    const formData = new FormData();
-    formData.append('image', image);
+  uploadFile() {
+    // this.http is the injected HttpClient
+    const uploadData = new FormData();
+    console.log(uploadData);
+    uploadData.append('image', this.selectedFile, this.selectedFile.name);
+    this.http.post('img/', uploadData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(event => {
+        console.log(event); // handle event here
+      });
   }
 }
