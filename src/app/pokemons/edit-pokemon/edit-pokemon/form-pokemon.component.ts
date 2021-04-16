@@ -4,6 +4,11 @@ import { Pokemon } from '../../donnees-pokemons/pokemon';
 import { ActivatedRoute, Router } from '@angular/router';
 import {PokemonService} from '../../pokemon.service';
 
+class ImageSnippet {
+  constructor(public src: string, public file: File) {
+  }
+}
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'form-pokemon',
@@ -14,6 +19,8 @@ export class FormPokemonComponent implements OnInit {
 
   types: any = [];
   @Input() pokemon: any;
+  selectedFile: ImageSnippet;
+  file: File;
 
   constructor(private route: ActivatedRoute, private router: Router, private pokemonService: PokemonService) {
   }
@@ -47,6 +54,18 @@ export class FormPokemonComponent implements OnInit {
         this.pokemon.types.splice(index, 1);
       }
     }
+  }
+  // tslint:disable-next-line:typedef
+  onImagePicked(image: any) {
+    console.log(image);
+    this.file = image.files[0];
+    console.log(this.file);
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, this.file);
+      this.pokemonService.uploadFile(this.selectedFile.file);
+      reader.readAsDataURL(this.file);
+    });
   }
 
 

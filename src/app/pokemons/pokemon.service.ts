@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { LISTPOKEMONS } from './donnees-pokemons/mock-pokemons';
-import { Pokemon } from './donnees-pokemons/pokemon';
+import {LISTPOKEMONS} from './donnees-pokemons/mock-pokemons';
+import {Pokemon} from './donnees-pokemons/pokemon';
 import {Router} from '@angular/router';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,8 @@ export class PokemonService {
   constructor(
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
 
   // tslint:disable-next-line:typedef
@@ -36,7 +37,7 @@ export class PokemonService {
   }
 
   // Retourne la liste des pokemons
-  getPokemons(): Observable< Pokemon[]> {
+  getPokemons(): Observable<Pokemon[]> {
     return this.http.get<Pokemon []>(this.pokemonsUrl).pipe(
       tap(_ => PokemonService.log(`fetched pokemons`)),
       // @ts-ignore
@@ -73,10 +74,10 @@ export class PokemonService {
 
   goBack(pokemon?: Pokemon): void {
     let link: any = [];
-    if (pokemon){
-         link = ['/pokemon', pokemon.id];
-      }else {
-        link = ['/pokemon/all'];
+    if (pokemon) {
+      link = ['/pokemon', pokemon.id];
+    } else {
+      link = ['/pokemon/all'];
     }
     this.router.navigate(link);
   }
@@ -87,7 +88,7 @@ export class PokemonService {
     };
 
     return this.http.put(this.pokemonsUrl, pokemon, httpOptions).pipe(
-      tap( _ => PokemonService.log(`updated pokemon id = ${pokemon.id}`)),
+      tap(_ => PokemonService.log(`updated pokemon id = ${pokemon.id}`)),
       catchError(this.handleError<any>('UpdatedPokemon error'))
     );
   }
@@ -100,8 +101,14 @@ export class PokemonService {
     };
 
     return this.http.delete<Pokemon>(url, httpOptions).pipe(
-      tap( _ => PokemonService.log(`deleted pokemon id = ${pokemon.id}`)),
+      tap(_ => PokemonService.log(`deleted pokemon id = ${pokemon.id}`)),
       catchError(this.handleError<any>('deletePokemon error'))
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  uploadFile(image: File) {
+    const formData = new FormData();
+    formData.append('image', image);
   }
 }

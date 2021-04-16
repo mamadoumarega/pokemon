@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../donnees-pokemons/pokemon';
 
-
+import { PokemonFilterPipe } from '../../pipes/pokemon-filter.pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PokemonService} from '../pokemon.service';
 
@@ -11,8 +11,10 @@ import {PokemonService} from '../pokemon.service';
   templateUrl: './pokemons.component.html'
 })
 export class PokemonsComponent implements OnInit {
-
-  pokemons: Pokemon[];
+  search: string;
+  pokemonsData: any[];
+  pokemons: any = [];
+  filterBy;
 
   constructor(private route: Router, private pokemonService: PokemonService) {
     this.pokemons = [];
@@ -21,10 +23,15 @@ export class PokemonsComponent implements OnInit {
   ngOnInit(): void {
    this.pokemonService.getPokemons()
      .subscribe(pokemons => {
+       // console.log(pokemons);
        this.pokemons = pokemons;
+       this.pokemonsData = [...this.pokemons];
+       console.log(this.pokemonsData);
      });
-
   }
+
+  // tslint:disable-next-line:typedef
+
 
   // tslint:disable-next-line:typedef
   selectedPokemon(pokemon: Pokemon) {
