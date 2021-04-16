@@ -1,5 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PokemonService} from '../pokemons/pokemon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +13,16 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor() {
+  constructor(private pokemonService: PokemonService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl(null, {
-        validators: [Validators.required, Validators.email]
+        validators: [Validators.required]
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(8)]
+        validators: [Validators.required]
       })
     });
   }
@@ -30,8 +32,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return ;
     }
-    console.log(this.loginForm.value.email);
-    console.log(this.loginForm.value.password);
+    alert('Connecter');
+    this.router.navigate(['/pokemon/all']);
     this.loginForm.reset();
   }
 }

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {PageNotFoundComponent} from './page-not-found.component';
+import {LoginComponent} from './auth/login.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'pokemon/all', pathMatch: 'full' },
+  {path: '', component: LoginComponent},
+  { path: 'pokemon/all', redirectTo: 'pokemon/all', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];
 
